@@ -8,8 +8,8 @@ make start:
 	npm run start
 
 make install:
-	npm ci
-	cd frontend && npm ci
+	npm install
+	cd frontend && npm install
 
 make deployment:
 	make install
