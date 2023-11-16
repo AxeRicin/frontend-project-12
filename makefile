@@ -14,4 +14,3 @@ make install:
 make deployment:
 	make install
 	make build
-	make start
