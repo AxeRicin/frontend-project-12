@@ -1,13 +1,20 @@
 import { useSelector } from 'react-redux';
+import { useContext, useEffect } from 'react';
 import NewMessageForm from './NewMessageForm';
+import { ApiContext } from '../hoc/ApiProvider';
 
 const ChatChannel = () => {
   const { channels, currentChannelID } = useSelector((state) => state.channelsInfo);
   const { messages } = useSelector((state) => state.messagesInfo);
+  const { takeMessage } = useContext(ApiContext);
 
   const currentChannel = channels.find((channel) => channel.id === currentChannelID);
 
   const currentMessages = messages.filter((message) => message.channelId === currentChannelID);
+
+  useEffect(() => {
+    takeMessage();
+  }, [takeMessage]);
 
   return (
     <div className="col p-0 h-100">
@@ -37,7 +44,7 @@ const ChatChannel = () => {
           ))}
         </div>
         <div className="mt-auto px-5 py-3">
-          <NewMessageForm />
+          <NewMessageForm currentChannelID={currentChannelID} />
         </div>
       </div>
     </div>

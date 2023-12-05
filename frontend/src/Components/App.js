@@ -7,20 +7,23 @@ import LoginPage from '../page/LoginPage.js';
 import AuthProvider from '../hoc/AuthProvider.js';
 import ChatPage from '../page/ChatPage.js';
 import store from '../store/store.js';
+import ApiProvider from '../hoc/ApiProvider.js';
 
 const App = () => (
   <div className="d-flex flex-column h-100">
     <AuthProvider>
       <Provider store={store}>
-        <BrowserRouter>
-          <Routes>
-            <Route path={getRoutes.main()} element={<Layout />}>
-              <Route index element={<ChatPage />} />
-              <Route path="*" element={<NotfoundPage />} />
-              <Route path={getRoutes.login()} element={<LoginPage />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
+        <ApiProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path={getRoutes.main()} element={<Layout />}>
+                <Route index element={<ChatPage />} />
+                <Route path="*" element={<NotfoundPage />} />
+                <Route path={getRoutes.login()} element={<LoginPage />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </ApiProvider>
       </Provider>
     </AuthProvider>
   </div>

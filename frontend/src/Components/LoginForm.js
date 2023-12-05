@@ -27,8 +27,8 @@ const LoginForm = () => {
         setAuthFailed(false);
         const response = (await axios.post('/api/v1/login', values));
         console.log(response);
-        const { token } = response.data;
-        signIn(token, () => navigate(fromPage, { replace: true }));
+        const { data } = response;
+        signIn(data, () => navigate(fromPage, { replace: true }));
       } catch (err) {
         if (err.isAxiosError && err.response.status === 401) {
           setAuthFailed(true);

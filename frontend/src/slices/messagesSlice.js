@@ -14,9 +14,12 @@ export const messagesSlice = createSlice({
       const { messages } = action.payload;
       state.messages = messages;
     },
+    addMessage: (state, action) => {
+      state.messages.push(action.payload);
+    },
   },
 });
 
-export const { addMessages } = messagesSlice.actions;
+export const { addMessages, addMessage } = messagesSlice.actions;
 
 export default messagesSlice.reducer;

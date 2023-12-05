@@ -1,14 +1,23 @@
 import { useFormik } from 'formik';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
-import io from 'socket.io-client';
+import { useContext } from 'react';
+import { AuthContext } from '../hoc/AuthProvider';
+import { ApiContext } from '../hoc/ApiProvider';
 
-console.log(io);
-const NewMessageForm = () => {
+const NewMessageForm = ({ currentChannelID }) => {
+  const { username } = useContext(AuthContext);
+  const { sendMessage } = useContext(ApiContext);
+
   const formik = useFormik({
     initialValues: {
       body: '',
     },
-    onSubmit: (values) => console.log('Сообщение отправлено: ', values),
+    onSubmit: (values) => {
+      if (formik.values.body !== '') {
+        sendMessage({ ...values, channelId: currentChannelID, username });
+        formik.values.body = '';
+      }
+    },
   });
 
   return (
