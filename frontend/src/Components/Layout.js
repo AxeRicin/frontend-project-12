@@ -3,6 +3,7 @@ import {
 } from 'react-router-dom';
 import getRoutes from '../routes';
 import useAuth from '../hook/useAuth';
+import Modal from './Modal';
 
 const Layout = () => {
   const location = useLocation();
@@ -18,6 +19,7 @@ const Layout = () => {
         </div>
       </nav>
       <Outlet />
+      <Modal />
     </>
   );
 };
