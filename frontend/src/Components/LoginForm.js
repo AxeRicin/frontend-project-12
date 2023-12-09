@@ -26,7 +26,6 @@ const LoginForm = () => {
       try {
         setAuthFailed(false);
         const response = (await axios.post('/api/v1/login', values));
-        console.log(response);
         const { data } = response;
         signIn(data, () => navigate(fromPage, { replace: true }));
       } catch (err) {

@@ -25,9 +25,16 @@ const ApiProvider = ({ children }) => {
     });
   };
 
+  const sendNewChannel = (nameNewChannel) => {
+    socket.timeout(msTimeout).emit('newChannel', { nameNewChannel }, (err, response) => {
+      console.log(err, response);
+    });
+  };
+
   const value = useMemo(() => ({
     sendMessage,
     takeMessage,
+    sendNewChannel,
   }), []);
 
   return (<ApiContext.Provider value={value}>{children}</ApiContext.Provider>);
