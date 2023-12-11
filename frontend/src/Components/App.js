@@ -19,7 +19,7 @@ const App = () => (
               <Route path={getRoutes.main()} element={<Layout />}>
                 <Route index element={<ChatPage />} />
                 <Route path="*" element={<NotfoundPage />} />
-                <Route path={getRoutes.login()} element={<LoginPage />} />
+                <Route path={getRoutes.loginpage()} element={<LoginPage />} />
               </Route>
             </Routes>
           </BrowserRouter>
