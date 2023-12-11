@@ -1,33 +1,27 @@
-import { Modal, Form, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
-import {
-  useContext, useEffect, useRef, useState,
-} from 'react';
+import { Modal, Form, Button } from 'react-bootstrap';
+import { useContext, useRef, useState } from 'react';
 import * as yup from 'yup';
 import { modalClose } from '../../slices/modalSlice';
 import { ApiContext } from '../../hoc/ApiProvider';
 
-const ModalAddChannel = () => {
-  const { isOpened } = useSelector((state) => state.modal);
+const RenameChannel = () => {
+  const { isOpened, extra: channelId } = useSelector((state) => state.modal);
   const { channels } = useSelector((state) => state.channelsInfo);
-  const { sendNewChannel } = useContext(ApiContext);
-  const dispatch = useDispatch();
-  const inputRef = useRef();
+  const { sendRenameChannel } = useContext(ApiContext);
+  const inputRef = useRef(null);
   const [isDisabledSubmit, setDisabledSubmit] = useState(false);
 
-  const channelNames = channels.map((channel) => channel.name);
+  const dispatch = useDispatch();
 
   const handleCancel = () => dispatch(modalClose());
 
+  const channelNames = channels.map((channel) => channel.name);
   const newChannelSchema = yup.object().shape({
     name: yup.string().required('От 3 до 20 символов').min(3, 'От 3 до 20 символов').max(20, 'От 3 до 20 символов')
       .test({ message: () => 'Должно быть уникальным', test: (newName) => !channelNames.includes(newName) }),
   });
-
-  useEffect(() => {
-    inputRef.current.select();
-  }, []);
 
   return (
     <Formik
@@ -37,13 +31,13 @@ const ModalAddChannel = () => {
       validationSchema={newChannelSchema}
       onSubmit={(values) => {
         setDisabledSubmit(true);
-        sendNewChannel(values.name);
+        sendRenameChannel(channelId, values.name);
       }}
     >
       {(props) => (
         <Modal dialogClassName="modal-dialog-centered" show={isOpened} onHide={handleCancel}>
           <Modal.Header closeButton>
-            <Modal.Title>Добавить канал</Modal.Title>
+            <Modal.Title>Переименовать канал</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form onSubmit={props.handleSubmit}>
@@ -67,9 +61,8 @@ const ModalAddChannel = () => {
           </Modal.Body>
         </Modal>
       )}
-
     </Formik>
   );
 };
 
-export default ModalAddChannel;
+export default RenameChannel;

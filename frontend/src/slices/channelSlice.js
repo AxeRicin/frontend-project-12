@@ -17,7 +17,19 @@ export const channelSlice = createSlice({
       state.channels = channels;
     },
     addChennel: (state, { payload }) => {
-      console.log(payload, state);
+      const isCopy = Boolean(state.channels.find(({ id }) => id === payload.id));
+      if (!isCopy) {
+        state.channels.push(payload);
+      }
+    },
+    removeChannel: (state, { payload: removeId }) => {
+      const { currentChannelID } = state;
+      if (currentChannelID === removeId) state.currentChannelID = 1;
+      state.channels = state.channels.filter((channel) => channel.id !== removeId);
+    },
+    renameChannel: (state, { payload: { id, name: newName } }) => {
+      const channelTarget = state.channels.find((channel) => channel.id === id);
+      channelTarget.name = newName;
     },
     setCurrentChannel: (state, { payload: id }) => {
       state.currentChannelID = id;
@@ -25,6 +37,8 @@ export const channelSlice = createSlice({
   },
 });
 
-export const { addChennels, addChennel, setCurrentChannel } = channelSlice.actions;
+export const {
+  addChennels, addChennel, setCurrentChannel, removeChannel, renameChannel,
+} = channelSlice.actions;
 
 export default channelSlice.reducer;

@@ -1,16 +1,24 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { PlusSquare } from 'react-bootstrap-icons';
+import { useContext, useEffect } from 'react';
 import ChannelBtn from './ChannelBtn';
 import { openModal } from '../slices/modalSlice';
+import { ApiContext } from '../hoc/ApiProvider';
 
 const Channels = () => {
-  const channelsInfo = useSelector((state) => state.channelsInfo);
+  const { channels } = useSelector((state) => state.channelsInfo);
   const dispatch = useDispatch();
-  const { channels } = channelsInfo;
+  const { takeChannel, takeRemoveChannel, takeRenameChannel } = useContext(ApiContext);
 
   const handleAddChannel = () => {
     dispatch(openModal({ type: 'addChannel' }));
   };
+
+  useEffect(() => {
+    takeChannel();
+    takeRemoveChannel();
+    takeRenameChannel();
+  }, []);
 
   return (
     <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">

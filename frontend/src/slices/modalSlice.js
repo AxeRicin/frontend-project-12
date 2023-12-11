@@ -19,7 +19,6 @@ export const modalSlice = createSlice({
     },
     openModal: (state, { payload }) => {
       const { type, extra } = payload;
-      console.log(type);
       state.type = type;
       state.extra = extra ?? null;
       state.isOpened = true;

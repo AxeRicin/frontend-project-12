@@ -5,6 +5,7 @@ import {
   Button, ButtonGroup, Dropdown,
 } from 'react-bootstrap';
 import { setCurrentChannel } from '../slices/channelSlice';
+import { openModal } from '../slices/modalSlice';
 
 const ChannelBtn = ({ channel }) => {
   const { currentChannelID } = useSelector((state) => state.channelsInfo);
@@ -12,6 +13,9 @@ const ChannelBtn = ({ channel }) => {
   const dispatch = useDispatch();
 
   const hendlerClickForChannelBtn = (id) => () => dispatch(setCurrentChannel(id));
+
+  const handleRemoveChannel = (id) => () => dispatch(openModal({ type: 'removeChannel', extra: id }));
+  const handleRenameChannel = (id) => () => dispatch(openModal({ type: 'renameChannel', extra: id }));
 
   const classChannelName = {
     'w-100': true,
@@ -40,8 +44,8 @@ const ChannelBtn = ({ channel }) => {
               <span className="visually-hidden">Управление каналом</span>
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item>Удалить</Dropdown.Item>
-              <Dropdown.Item>Переименовать</Dropdown.Item>
+              <Dropdown.Item onClick={handleRemoveChannel(channel.id)}>Удалить</Dropdown.Item>
+              <Dropdown.Item onClick={handleRenameChannel(channel.id)}>Переименовать</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </ButtonGroup>
