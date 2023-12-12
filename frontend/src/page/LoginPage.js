@@ -17,7 +17,7 @@ const LoginPage = () => (
           <div className="card-footer p-4">
             <div className="text-center">
               <span>Нет аккаунта? </span>
-              <Link to={getRoutes.signup()}>Регистрация</Link>
+              <Link to={getRoutes.signuppage()}>Регистрация</Link>
             </div>
           </div>
         </div>

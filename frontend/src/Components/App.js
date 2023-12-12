@@ -8,6 +8,7 @@ import AuthProvider from '../hoc/AuthProvider.js';
 import ChatPage from '../page/ChatPage.js';
 import store from '../store/store.js';
 import ApiProvider from '../hoc/ApiProvider.js';
+import RegistrationPage from '../page/RegistrationPage.js';
 
 const App = () => (
   <div className="d-flex flex-column h-100">
@@ -20,6 +21,7 @@ const App = () => (
                 <Route index element={<ChatPage />} />
                 <Route path="*" element={<NotfoundPage />} />
                 <Route path={getRoutes.loginpage()} element={<LoginPage />} />
+                <Route path={getRoutes.signuppage()} element={<RegistrationPage />} />
               </Route>
             </Routes>
           </BrowserRouter>
