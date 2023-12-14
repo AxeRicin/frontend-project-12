@@ -1,10 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactDOM from 'react-dom/client';
-import App from './Components/App';
+import init from './init.js';
 
-const app = () => {
+const app = async () => {
   const root = ReactDOM.createRoot(document.getElementById('chat'));
-  root.render(<App />);
+  root.render(await init());
 };
 
 app();

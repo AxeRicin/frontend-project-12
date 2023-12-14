@@ -1,12 +1,14 @@
 import { useFormik } from 'formik';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
 import { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import { AuthContext } from '../hoc/AuthProvider';
 import { ApiContext } from '../hoc/ApiProvider';
 
 const NewMessageForm = ({ currentChannelID }) => {
   const { username } = useContext(AuthContext);
   const { sendMessage } = useContext(ApiContext);
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
@@ -26,15 +28,15 @@ const NewMessageForm = ({ currentChannelID }) => {
         <input
           className="border-0 p-0 ps-2 form-control"
           name="body"
-          aria-label="Новое сообщение"
-          placeholder="Введите сообщение..."
+          aria-label={t('new_message')}
+          placeholder={t('enter_message')}
           type="text"
           value={formik.values.body}
           onChange={formik.handleChange}
         />
         <button className="btn btn-group-vertical" type="submit" disabled="">
           <ArrowRightSquare width="20" height="20" />
-          <span className="visually-hidden">Отправить</span>
+          <span className="visually-hidden">{t('send_btn')}</span>
         </button>
       </div>
     </form>
