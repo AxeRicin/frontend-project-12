@@ -29,7 +29,7 @@ const ChatPage = () => {
       setIsLoaded(true);
     };
     fetchData();
-  });
+  }, [userToken]);
   if (!isLoaded) return (<Loader />);
   return (
     <>
