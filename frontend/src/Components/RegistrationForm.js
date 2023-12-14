@@ -21,9 +21,9 @@ const RegistrationForm = () => {
   const fromPage = location.state?.from?.pathname ?? getRoutes.main();
 
   const registrationSchema = yup.object().shape({
-    username: yup.string().required(t('mandatory_field')).min(3, t('min_or_max_length_username')).max(20, t('min_or_max_length_username')),
-    password: yup.string().required(t('mandatory_field')).min(6, t('min_length_password')),
-    confirmPassword: yup.string().required(t('mandatory_field')).oneOf([yup.ref('password')], t('passwords_must_match')),
+    username: yup.string().required(t('reg_page.reg_form.reg_error.mandatory_field')).min(3, t('reg_page.reg_form.reg_error.min_or_max_length_username')).max(20, t('reg_page.reg_form.reg_error.min_or_max_length_username')),
+    password: yup.string().required(t('reg_page.reg_form.reg_error.mandatory_field')).min(6, t('reg_page.reg_form.reg_error.min_length_password')),
+    confirmPassword: yup.string().required(t('reg_page.reg_form.reg_error.mandatory_field')).oneOf([yup.ref('password')], t('reg_page.reg_form.reg_error.passwords_must_match')),
   });
 
   useEffect(() => {
@@ -50,7 +50,7 @@ const RegistrationForm = () => {
               break;
 
             default:
-              console.error('Возникла непредвиденная ошибка');
+              console.error('An unexpected error occurred');
               break;
           }
         }
@@ -64,13 +64,13 @@ const RegistrationForm = () => {
               ref={usernameRef}
               name="username"
               autoComplete="username"
-              placeholder={t('min_or_max_length_username')}
+              placeholder={t('reg_page.reg_form.reg_error.min_or_max_length_username')}
               required
               value={props.values.username}
               onChange={props.handleChange}
               isInvalid={(props.touched.username && props.errors.username) || isExistingUser}
             />
-            <Form.Label>{t('username_lable')}</Form.Label>
+            <Form.Label>{t('reg_page.reg_form.username_lable')}</Form.Label>
             {
               props.touched.username
               && props.errors.username
@@ -82,7 +82,7 @@ const RegistrationForm = () => {
             <Form.Control
               name="password"
               autoComplete="new-password"
-              placeholder={t('min_length_password')}
+              placeholder={t('reg_page.reg_form.reg_error.min_length_password')}
               required
               type="password"
               value={props.values.password}
@@ -95,13 +95,13 @@ const RegistrationForm = () => {
               && props.errors.password
               && <Form.Control.Feedback type="invalid" tooltip>{props.errors.password}</Form.Control.Feedback>
             }
-            {isExistingUser && <Form.Control.Feedback type="invalid" tooltip>{t('user_exist')}</Form.Control.Feedback>}
+            {isExistingUser && <Form.Control.Feedback type="invalid" tooltip>{t('reg_page.reg_form.reg_error.user_exist')}</Form.Control.Feedback>}
           </Form.Group>
           <Form.Group className="form-floating mb-4" controlId="confirmPassword">
             <Form.Control
               name="confirmPassword"
               autoComplete="new-password"
-              placeholder={t('passwords_must_match')}
+              placeholder={t('reg_page.reg_form.reg_error.passwords_must_match')}
               required
               type="password"
               value={props.values.confirmPassword}
@@ -110,15 +110,15 @@ const RegistrationForm = () => {
                 (props.touched.confirmPassword && props.errors.confirmPassword) || isExistingUser
               }
             />
-            <Form.Label>{t('confirm_password')}</Form.Label>
+            <Form.Label>{t('reg_page.reg_form.confirm_password')}</Form.Label>
             {
               props.touched.confirmPassword
               && props.errors.confirmPassword
               && <Form.Control.Feedback type="invalid" tooltip>{props.errors.confirmPassword}</Form.Control.Feedback>
             }
-            {isExistingUser && <Form.Control.Feedback type="invalid" tooltip>{t('user_exist')}</Form.Control.Feedback>}
+            {isExistingUser && <Form.Control.Feedback type="invalid" tooltip>{t('reg_page.reg_form.reg_error.user_exist')}</Form.Control.Feedback>}
           </Form.Group>
-          <Button className="w-100" variant="outline-primary" type="submit">{t('sign_up_btn')}</Button>
+          <Button className="w-100" variant="outline-primary" type="submit">{t('reg_page.reg_form.sign_up_btn')}</Button>
         </Form>
       )}
     </Formik>

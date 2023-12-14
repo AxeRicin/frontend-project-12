@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   Button, ButtonGroup, Dropdown,
 } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { setCurrentChannel } from '../slices/channelSlice';
 import { openModal } from '../slices/modalSlice';
 
@@ -11,6 +12,7 @@ const ChannelBtn = ({ channel }) => {
   const { currentChannelID } = useSelector((state) => state.channelsInfo);
   const isCurrentChannel = (id) => currentChannelID === id;
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const hendlerClickForChannelBtn = (id) => () => dispatch(setCurrentChannel(id));
 
@@ -41,11 +43,11 @@ const ChannelBtn = ({ channel }) => {
           </Button>
           <Dropdown>
             <Dropdown.Toggle variant="" className={classExpandedBtn}>
-              <span className="visually-hidden">Управление каналом</span>
+              <span className="visually-hidden" />
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item onClick={handleRemoveChannel(channel.id)}>Удалить</Dropdown.Item>
-              <Dropdown.Item onClick={handleRenameChannel(channel.id)}>Переименовать</Dropdown.Item>
+              <Dropdown.Item onClick={handleRemoveChannel(channel.id)}>{t('chat_page.chat.dropdown_delete')}</Dropdown.Item>
+              <Dropdown.Item onClick={handleRenameChannel(channel.id)}>{t('chat_page.chat.dropdown_rename')}</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </ButtonGroup>

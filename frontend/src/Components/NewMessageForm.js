@@ -28,15 +28,15 @@ const NewMessageForm = ({ currentChannelID }) => {
         <input
           className="border-0 p-0 ps-2 form-control"
           name="body"
-          aria-label={t('new_message')}
-          placeholder={t('enter_message')}
+          aria-label={t('chat_page.chat.new_message')}
+          placeholder={t('chat_page.chat.enter_message')}
           type="text"
           value={formik.values.body}
           onChange={formik.handleChange}
         />
         <button className="btn btn-group-vertical" type="submit" disabled="">
           <ArrowRightSquare width="20" height="20" />
-          <span className="visually-hidden">{t('send_btn')}</span>
+          <span className="visually-hidden">{t('chat_page.chat.send_btn')}</span>
         </button>
       </div>
     </form>

@@ -5,6 +5,7 @@ import {
   useContext, useEffect, useRef, useState,
 } from 'react';
 import * as yup from 'yup';
+import { useTranslation } from 'react-i18next';
 import { modalClose } from '../../slices/modalSlice';
 import { ApiContext } from '../../hoc/ApiProvider';
 
@@ -15,14 +16,15 @@ const ModalAddChannel = () => {
   const dispatch = useDispatch();
   const inputRef = useRef();
   const [isDisabledSubmit, setDisabledSubmit] = useState(false);
+  const { t } = useTranslation();
 
   const channelNames = channels.map((channel) => channel.name);
 
   const handleCancel = () => dispatch(modalClose());
 
   const newChannelSchema = yup.object().shape({
-    name: yup.string().required('От 3 до 20 символов').min(3, 'От 3 до 20 символов').max(20, 'От 3 до 20 символов')
-      .test({ message: () => 'Должно быть уникальным', test: (newName) => !channelNames.includes(newName) }),
+    name: yup.string().required(t('modals.err_valid.min_or_max_length_username')).min(3, t('modals.err_valid.min_or_max_length_username')).max(20, t('modals.err_valid.min_or_max_length_username'))
+      .test({ message: () => t('modals.err_valid.notunique_name'), test: (newName) => !channelNames.includes(newName) }),
   });
 
   useEffect(() => {
@@ -43,7 +45,7 @@ const ModalAddChannel = () => {
       {(props) => (
         <Modal dialogClassName="modal-dialog-centered" show={isOpened} onHide={handleCancel}>
           <Modal.Header closeButton>
-            <Modal.Title>Добавить канал</Modal.Title>
+            <Modal.Title>{t('modals.add_channel.title')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form onSubmit={props.handleSubmit}>
@@ -57,10 +59,10 @@ const ModalAddChannel = () => {
                   isInvalid={props.touched.name && props.errors.name}
                 />
                 {props.touched.name && props.errors.name && <Form.Control.Feedback type="invalid">{props.errors.name}</Form.Control.Feedback>}
-                <Form.Label className="visually-hidden">Имя канала</Form.Label>
+                <Form.Label className="visually-hidden">{t('modals.add_channel.label')}</Form.Label>
                 <div className="d-flex justify-content-end">
-                  <Button className="me-2" variant="secondary" onClick={handleCancel}>Отменить</Button>
-                  <Button variant="primary" type="submit" disabled={isDisabledSubmit}>Отправить</Button>
+                  <Button className="me-2" variant="secondary" onClick={handleCancel}>{t('modals.cancel_btn')}</Button>
+                  <Button variant="primary" type="submit" disabled={isDisabledSubmit}>{t('modals.send_btn')}</Button>
                 </div>
               </Form.Group>
             </Form>

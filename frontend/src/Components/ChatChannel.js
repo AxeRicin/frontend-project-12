@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useContext, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import NewMessageForm from './NewMessageForm';
 import { ApiContext } from '../hoc/ApiProvider';
 
@@ -7,6 +8,7 @@ const ChatChannel = () => {
   const { channels, currentChannelID } = useSelector((state) => state.channelsInfo);
   const { messages } = useSelector((state) => state.messagesInfo);
   const { takeMessage } = useContext(ApiContext);
+  const { t } = useTranslation();
 
   const currentChannel = channels.find((channel) => channel.id === currentChannelID);
 
@@ -28,9 +30,7 @@ const ChatChannel = () => {
             </b>
           </p>
           <span className="text-muted">
-            {currentMessages.length}
-            {' '}
-            сообщения
+            {t('chat_page.chat.counter_message.message', { count: currentMessages.length })}
           </span>
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5 ">
