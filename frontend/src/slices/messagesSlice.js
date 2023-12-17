@@ -15,8 +15,9 @@ export const messagesSlice = createSlice({
       const { messages } = action.payload;
       state.messages = messages;
     },
-    addMessage: (state, action) => {
-      state.messages.push(action.payload);
+    addMessage: (state, { payload: newMessage }) => {
+      const isCopy = state.messages.find((message) => message === newMessage.id);
+      if (!isCopy) state.messages.push(newMessage);
     },
   },
   extraReducers: (builder) => {

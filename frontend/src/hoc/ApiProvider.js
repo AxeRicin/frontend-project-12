@@ -16,6 +16,7 @@ export const ApiContext = createContext(null);
 const ApiProvider = ({ children }) => {
   const socket = io();
   const dispatch = useDispatch();
+
   const takeMessage = () => {
     socket.on('newMessage', (newMessage) => dispatch(addMessage(newMessage)));
   };
