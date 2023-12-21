@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 import getRoutes from '../routes.js';
 import Layout from './Layout.js';
 import NotfoundPage from '../page/NotfoundPage.js';
@@ -11,11 +12,12 @@ import ApiProvider from '../hoc/ApiProvider.js';
 import RegistrationPage from '../page/RegistrationPage.js';
 
 const App = () => (
-  <div className="d-flex flex-column h-100">
-    <AuthProvider>
-      <Provider store={store}>
-        <ApiProvider>
-          <BrowserRouter>
+
+  <AuthProvider>
+    <Provider store={store}>
+      <ApiProvider>
+        <BrowserRouter>
+          <div className="d-flex flex-column h-100">
             <Routes>
               <Route path={getRoutes.main()} element={<Layout />}>
                 <Route index element={<ChatPage />} />
@@ -24,11 +26,23 @@ const App = () => (
                 <Route path={getRoutes.signuppage()} element={<RegistrationPage />} />
               </Route>
             </Routes>
-          </BrowserRouter>
-        </ApiProvider>
-      </Provider>
-    </AuthProvider>
-  </div>
+          </div>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
+        </BrowserRouter>
+      </ApiProvider>
+    </Provider>
+  </AuthProvider>
 );
 
 export default App;

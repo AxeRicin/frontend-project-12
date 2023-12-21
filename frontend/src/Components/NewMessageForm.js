@@ -1,14 +1,23 @@
+/* eslint consistent-return: 0 */
+
 import { useFormik } from 'formik';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
-import { useContext } from 'react';
+import {
+  useContext, useEffect, useRef, useState,
+} from 'react';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { AuthContext } from '../hoc/AuthProvider';
 import { ApiContext } from '../hoc/ApiProvider';
 
+const msTimeout = 5000;
+
 const NewMessageForm = ({ currentChannelID }) => {
   const { username } = useContext(AuthContext);
-  const { sendMessage } = useContext(ApiContext);
   const { t } = useTranslation();
+  const [isDisabledForm, setDisabledForm] = useState(false);
+  const { socket } = useContext(ApiContext);
+  const textArea = useRef();
 
   const formik = useFormik({
     initialValues: {
@@ -16,16 +25,30 @@ const NewMessageForm = ({ currentChannelID }) => {
     },
     onSubmit: (values) => {
       if (formik.values.body !== '') {
-        sendMessage({ ...values, channelId: currentChannelID, username });
-        formik.values.body = '';
+        setDisabledForm(true);
+
+        socket.timeout(msTimeout).emit('newMessage', { ...values, channelId: currentChannelID, username }, (err, response) => {
+          console.log(err, response);
+          if (err) {
+            setDisabledForm(false);
+            return toast.error(t('notifications.connection_error'));
+          }
+          if (response.status === 'ok') {
+            formik.values.body = '';
+            setDisabledForm(false);
+          }
+        });
       }
     },
   });
+
+  useEffect(() => textArea.current.focus());
 
   return (
     <form className="py-1 border rounded-2" onSubmit={formik.handleSubmit}>
       <div className="input-group has-validation">
         <input
+          ref={textArea}
           className="border-0 p-0 ps-2 form-control"
           name="body"
           aria-label={t('chat_page.chat.new_message')}
@@ -33,8 +56,9 @@ const NewMessageForm = ({ currentChannelID }) => {
           type="text"
           value={formik.values.body}
           onChange={formik.handleChange}
+          disabled={isDisabledForm}
         />
-        <button className="btn btn-group-vertical" type="submit" disabled="">
+        <button className="btn btn-group-vertical" type="submit" disabled={isDisabledForm}>
           <ArrowRightSquare width="20" height="20" />
           <span className="visually-hidden">{t('chat_page.chat.send_btn')}</span>
         </button>

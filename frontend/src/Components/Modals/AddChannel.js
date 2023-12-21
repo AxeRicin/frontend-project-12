@@ -15,7 +15,7 @@ const ModalAddChannel = () => {
   const { sendNewChannel } = useContext(ApiContext);
   const dispatch = useDispatch();
   const inputRef = useRef();
-  const [isDisabledSubmit, setDisabledSubmit] = useState(false);
+  const [isDisabledButton, setDisabledButton] = useState(false);
   const { t } = useTranslation();
 
   const channelNames = channels.map((channel) => channel.name);
@@ -38,8 +38,11 @@ const ModalAddChannel = () => {
       }}
       validationSchema={newChannelSchema}
       onSubmit={(values) => {
-        setDisabledSubmit(true);
+        setDisabledButton(true);
         sendNewChannel(values.name);
+        setTimeout(() => {
+          setDisabledButton(false);
+        }, 5500);
       }}
     >
       {(props) => (
@@ -61,8 +64,8 @@ const ModalAddChannel = () => {
                 {props.touched.name && props.errors.name && <Form.Control.Feedback type="invalid">{props.errors.name}</Form.Control.Feedback>}
                 <Form.Label className="visually-hidden">{t('modals.add_channel.label')}</Form.Label>
                 <div className="d-flex justify-content-end">
-                  <Button className="me-2" variant="secondary" onClick={handleCancel}>{t('modals.cancel_btn')}</Button>
-                  <Button variant="primary" type="submit" disabled={isDisabledSubmit}>{t('modals.send_btn')}</Button>
+                  <Button className="me-2" variant="secondary" onClick={handleCancel} disabled={isDisabledButton}>{t('modals.cancel_btn')}</Button>
+                  <Button variant="primary" type="submit" disabled={isDisabledButton}>{t('modals.send_btn')}</Button>
                 </div>
               </Form.Group>
             </Form>

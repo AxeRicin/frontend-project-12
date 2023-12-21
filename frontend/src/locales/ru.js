@@ -67,6 +67,12 @@ export default {
         notunique_name: 'Должно быть уникальным',
       },
     },
+    notifications: {
+      connection_error: 'Ошибка соединения',
+      channel_add: 'Канал создан',
+      channel_remove: 'Канал удалён',
+      channel_rename: 'Канал переименован',
+    },
     exit_btn: 'Выйти',
     password: 'Пароль',
     registration: 'Регистрация',

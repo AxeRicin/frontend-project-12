@@ -12,7 +12,7 @@ const RenameChannel = () => {
   const { channels } = useSelector((state) => state.channelsInfo);
   const { sendRenameChannel } = useContext(ApiContext);
   const inputRef = useRef(null);
-  const [isDisabledSubmit, setDisabledSubmit] = useState(false);
+  const [isDisabledButton, setDisabledButton] = useState(false);
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
@@ -32,8 +32,11 @@ const RenameChannel = () => {
       }}
       validationSchema={newChannelSchema}
       onSubmit={(values) => {
-        setDisabledSubmit(true);
+        setDisabledButton(true);
         sendRenameChannel(channelId, values.name);
+        setTimeout(() => {
+          setDisabledButton(false);
+        }, 5500);
       }}
     >
       {(props) => (
@@ -55,8 +58,8 @@ const RenameChannel = () => {
                 {props.touched.name && props.errors.name && <Form.Control.Feedback type="invalid">{props.errors.name}</Form.Control.Feedback>}
                 <Form.Label className="visually-hidden">{t('modals.rename_channel.label')}</Form.Label>
                 <div className="d-flex justify-content-end">
-                  <Button className="me-2" variant="secondary" onClick={handleCancel}>{t('modals.cancel_btn')}</Button>
-                  <Button variant="primary" type="submit" disabled={isDisabledSubmit}>{t('modals.send_btn')}</Button>
+                  <Button className="me-2" variant="secondary" onClick={handleCancel} disabled={isDisabledButton}>{t('modals.cancel_btn')}</Button>
+                  <Button variant="primary" type="submit" disabled={isDisabledButton}>{t('modals.send_btn')}</Button>
                 </div>
               </Form.Group>
             </Form>

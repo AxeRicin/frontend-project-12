@@ -6,6 +6,7 @@ import {
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { AuthContext } from '../hoc/AuthProvider';
 import getRoutes from '../routes.js';
 
@@ -31,7 +32,10 @@ const LoginForm = () => {
         const { data } = response;
         signIn(data, () => navigate(fromPage, { replace: true }));
       } catch (err) {
-        if (err.isAxiosError) {
+        if (!err.response) {
+          toast.error(t('notifications.connection_error'));
+        }
+        if (err.response.status === 401) {
           setAuthFailed(true);
           inputRef.current.select();
         }
