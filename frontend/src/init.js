@@ -9,11 +9,6 @@ const rollbarConfig = {
   environment: 'testenv',
 };
 
-const TestError = () => {
-  const a = null;
-  return a.hello();
-};
-
 const init = async () => {
   const i18n = i18next.createInstance();
 
@@ -30,7 +25,6 @@ const init = async () => {
   return (
     <Provider config={rollbarConfig}>
       <ErrorBoundary>
-        <TestError />
         <I18nextProvider i18n={i18n}>
           <App />
         </I18nextProvider>
