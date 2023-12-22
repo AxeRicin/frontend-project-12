@@ -37,6 +37,7 @@ export default {
           message_many: '{{count}} сообщений',
         },
         header: 'Каналы',
+        dropdown: 'Управление каналом',
         dropdown_toggle: 'Управление каналом',
         dropdown_delete: 'Удалить',
         dropdown_rename: 'Переименовать',

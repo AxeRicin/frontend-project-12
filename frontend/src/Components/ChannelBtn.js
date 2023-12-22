@@ -43,7 +43,7 @@ const ChannelBtn = ({ channel }) => {
           </Button>
           <Dropdown>
             <Dropdown.Toggle variant="" className={classExpandedBtn}>
-              <span className="visually-hidden" />
+              <span className="visually-hidden">{t('chat_page.chat.dropdown')}</span>
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item onClick={handleRemoveChannel(channel.id)}>{t('chat_page.chat.dropdown_delete')}</Dropdown.Item>
