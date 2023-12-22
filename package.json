@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "[![Actions Status](https://github.com/AxeRicin/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/AxeRicin/frontend-project-12/actions)",
+  "description": "Hexlet Chat is a simplified analog of Slack chat. Real-time application written in React/Redux using AJAX, REST, websockets, React (with hooks) + Redux (@reduxjs/toolkit) + Formik + React Bootstrap.",
   "main": "index.js",
   "scripts": {
     "build": "npm run build --prefix frontend",
@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "cd ./frontend && npm ci"
   },
-  "author": "",
+  "author": "AxeRicin",
   "license": "ISC",
   "dependencies": {
     "@hexlet/chat-server": "^1.1.8"
