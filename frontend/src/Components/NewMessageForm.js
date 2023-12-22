@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../hoc/AuthProvider';
 import { ApiContext } from '../hoc/ApiProvider';
+import { FilterContext } from '../hoc/FilterProfanityProvider';
 
 const msTimeout = 5000;
 
@@ -17,6 +18,7 @@ const NewMessageForm = ({ currentChannelID }) => {
   const { t } = useTranslation();
   const [isDisabledForm, setDisabledForm] = useState(false);
   const { socket } = useContext(ApiContext);
+  const filter = useContext(FilterContext);
   const textArea = useRef();
 
   const formik = useFormik({
@@ -27,8 +29,7 @@ const NewMessageForm = ({ currentChannelID }) => {
       if (formik.values.body !== '') {
         setDisabledForm(true);
 
-        socket.timeout(msTimeout).emit('newMessage', { ...values, channelId: currentChannelID, username }, (err, response) => {
-          console.log(err, response);
+        socket.timeout(msTimeout).emit('newMessage', { body: filter.clean(values.body), channelId: currentChannelID, username }, (err, response) => {
           if (err) {
             setDisabledForm(false);
             return toast.error(t('notifications.connection_error'));

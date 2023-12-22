@@ -10,36 +10,39 @@ import ChatPage from '../page/ChatPage.js';
 import store from '../store/store.js';
 import ApiProvider from '../hoc/ApiProvider.js';
 import RegistrationPage from '../page/RegistrationPage.js';
+import FPProvider from '../hoc/FilterProfanityProvider.js';
 
 const App = () => (
 
   <AuthProvider>
     <Provider store={store}>
       <ApiProvider>
-        <BrowserRouter>
-          <div className="d-flex flex-column h-100">
-            <Routes>
-              <Route path={getRoutes.main()} element={<Layout />}>
-                <Route index element={<ChatPage />} />
-                <Route path="*" element={<NotfoundPage />} />
-                <Route path={getRoutes.loginpage()} element={<LoginPage />} />
-                <Route path={getRoutes.signuppage()} element={<RegistrationPage />} />
-              </Route>
-            </Routes>
-          </div>
-          <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
-        </BrowserRouter>
+        <FPProvider>
+          <BrowserRouter>
+            <div className="d-flex flex-column h-100">
+              <Routes>
+                <Route path={getRoutes.main()} element={<Layout />}>
+                  <Route index element={<ChatPage />} />
+                  <Route path="*" element={<NotfoundPage />} />
+                  <Route path={getRoutes.loginpage()} element={<LoginPage />} />
+                  <Route path={getRoutes.signuppage()} element={<RegistrationPage />} />
+                </Route>
+              </Routes>
+            </div>
+            <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
+          </BrowserRouter>
+        </FPProvider>
       </ApiProvider>
     </Provider>
   </AuthProvider>

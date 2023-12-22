@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { modalClose } from '../../slices/modalSlice';
 import { ApiContext } from '../../hoc/ApiProvider';
+import { FilterContext } from '../../hoc/FilterProfanityProvider';
 
 const ModalAddChannel = () => {
   const { isOpened } = useSelector((state) => state.modal);
@@ -15,6 +16,7 @@ const ModalAddChannel = () => {
   const { sendNewChannel } = useContext(ApiContext);
   const dispatch = useDispatch();
   const inputRef = useRef();
+  const filter = useContext(FilterContext);
   const [isDisabledButton, setDisabledButton] = useState(false);
   const { t } = useTranslation();
 
@@ -39,7 +41,7 @@ const ModalAddChannel = () => {
       validationSchema={newChannelSchema}
       onSubmit={(values) => {
         setDisabledButton(true);
-        sendNewChannel(values.name);
+        sendNewChannel(filter.clean(values.name));
         setTimeout(() => {
           setDisabledButton(false);
         }, 5500);

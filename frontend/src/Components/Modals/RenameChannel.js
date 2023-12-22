@@ -6,6 +6,7 @@ import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { modalClose } from '../../slices/modalSlice';
 import { ApiContext } from '../../hoc/ApiProvider';
+import { FilterContext } from '../../hoc/FilterProfanityProvider';
 
 const RenameChannel = () => {
   const { isOpened, extra: channelId } = useSelector((state) => state.modal);
@@ -14,6 +15,7 @@ const RenameChannel = () => {
   const inputRef = useRef(null);
   const [isDisabledButton, setDisabledButton] = useState(false);
   const { t } = useTranslation();
+  const filter = useContext(FilterContext);
 
   const dispatch = useDispatch();
 
@@ -33,7 +35,7 @@ const RenameChannel = () => {
       validationSchema={newChannelSchema}
       onSubmit={(values) => {
         setDisabledButton(true);
-        sendRenameChannel(channelId, values.name);
+        sendRenameChannel(channelId, filter.clean(values.name));
         setTimeout(() => {
           setDisabledButton(false);
         }, 5500);
