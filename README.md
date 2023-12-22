@@ -1,6 +1,7 @@
 ### Hexlet tests and linter status:
 
 [![Actions Status](https://github.com/AxeRicin/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/AxeRicin/frontend-project-12/actions)
+[![Maintainability](https://api.codeclimate.com/v1/badges/c3fe031c453a3d8f1f7d/maintainability)](https://codeclimate.com/github/AxeRicin/frontend-project-12/maintainability)
 
 
 # Hexlet-Chat
