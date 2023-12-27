@@ -30,7 +30,8 @@ const LoginForm = () => {
         setAuthFailed(false);
         const response = (await axios.post(getRoutes.login(), values));
         const { data } = response;
-        signIn(data, () => navigate(fromPage, { replace: true }));
+        signIn(data);
+        navigate(fromPage, { replace: true });
       } catch (err) {
         if (!err.response) {
           toast.error(t('notifications.connection_error'));

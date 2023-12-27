@@ -65,7 +65,7 @@ export default {
       delete_btn: 'Удалить',
       err_valid: {
         min_or_max_length_username: 'От 3 до 20 символов',
-        notunique_name: 'Должно быть уникальным',
+        not_Unique_name: 'Должно быть уникальным',
       },
     },
     notifications: {

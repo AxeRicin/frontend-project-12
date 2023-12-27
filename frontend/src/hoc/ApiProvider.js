@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { addMessage } from '../slices/messagesSlice';
 import {
-  addChennel, setCurrentChannel, removeChannel, renameChannel,
+  addChannel, setCurrentChannel, removeChannel, renameChannel,
 } from '../slices/channelSlice';
 import { modalClose } from '../slices/modalSlice';
 
@@ -31,14 +31,14 @@ const ApiProvider = ({ children }) => {
   };
 
   const takeChannel = () => {
-    socket.on('newChannel', (payload) => dispatch(addChennel(payload)));
+    socket.on('newChannel', (payload) => dispatch(addChannel(payload)));
   };
 
   const sendNewChannel = (nameNewChannel) => {
     socket.timeout(msTimeout).emit('newChannel', { name: nameNewChannel }, (err, response) => {
       if (err) return toast.error(t('notifications.connection_error'));
       const { id } = response.data;
-      dispatch(addChennel(response.data));
+      dispatch(addChannel(response.data));
       dispatch(setCurrentChannel(id));
       dispatch(modalClose());
       toast.success(t('notifications.channel_add'));

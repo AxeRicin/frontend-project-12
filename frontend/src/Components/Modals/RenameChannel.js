@@ -1,7 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import { Modal, Form, Button } from 'react-bootstrap';
-import { useContext, useRef, useState } from 'react';
+import {
+  useContext, useEffect, useRef, useState,
+} from 'react';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { modalClose } from '../../slices/modalSlice';
@@ -24,7 +26,11 @@ const RenameChannel = () => {
   const channelNames = channels.map((channel) => channel.name);
   const newChannelSchema = yup.object().shape({
     name: yup.string().required(t('modals.err_valid.min_or_max_length_username')).min(3, t('modals.err_valid.min_or_max_length_username')).max(20, t('modals.err_valid.min_or_max_length_username'))
-      .test({ message: () => t('modals.err_valid.notunique_name'), test: (newName) => !channelNames.includes(newName) }),
+      .test({ message: () => t('modals.err_valid.not_Unique_name'), test: (newName) => !channelNames.includes(newName) }),
+  });
+
+  useEffect(() => {
+    inputRef.current.focus();
   });
 
   return (

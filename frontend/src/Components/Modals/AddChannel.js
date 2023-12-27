@@ -26,7 +26,7 @@ const ModalAddChannel = () => {
 
   const newChannelSchema = yup.object().shape({
     name: yup.string().required(t('modals.err_valid.min_or_max_length_username')).min(3, t('modals.err_valid.min_or_max_length_username')).max(20, t('modals.err_valid.min_or_max_length_username'))
-      .test({ message: () => t('modals.err_valid.notunique_name'), test: (newName) => !channelNames.includes(newName) }),
+      .test({ message: () => t('modals.err_valid.not_Unique_name'), test: (newName) => !channelNames.includes(newName) }),
   });
 
   useEffect(() => {

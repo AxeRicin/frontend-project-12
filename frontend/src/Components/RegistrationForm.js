@@ -41,8 +41,9 @@ const RegistrationForm = () => {
       onSubmit={async ({ username, password }) => {
         try {
           setExistingUser(false);
-          const { data } = await axios.post(getRoutes.signup(), { username, password });
-          signIn(data, () => navigate(fromPage, { replace: true }));
+          const { data } = await axios.post(getRoutes.signUp(), { username, password });
+          signIn(data);
+          navigate(fromPage, { replace: true });
         } catch (err) {
           switch (err.response.status) {
             case 409:

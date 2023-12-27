@@ -2,11 +2,10 @@
 
 import { useFormik } from 'formik';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
-import {
-  useContext, useEffect, useRef, useState,
-} from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import * as yup from 'yup';
 import { AuthContext } from '../hoc/AuthProvider';
 import { ApiContext } from '../hoc/ApiProvider';
 import { FilterContext } from '../hoc/FilterProfanityProvider';
@@ -14,9 +13,8 @@ import { FilterContext } from '../hoc/FilterProfanityProvider';
 const msTimeout = 5000;
 
 const NewMessageForm = ({ currentChannelID }) => {
-  const { username } = useContext(AuthContext);
+  const { user: { username } } = useContext(AuthContext);
   const { t } = useTranslation();
-  const [isDisabledForm, setDisabledForm] = useState(false);
   const { socket } = useContext(ApiContext);
   const filter = useContext(FilterContext);
   const textArea = useRef();
@@ -25,18 +23,19 @@ const NewMessageForm = ({ currentChannelID }) => {
     initialValues: {
       body: '',
     },
+    validationSchema: yup.object().shape({
+      body: yup.string().trim().required(),
+    }),
     onSubmit: (values) => {
       if (formik.values.body !== '') {
-        setDisabledForm(true);
-
         socket.timeout(msTimeout).emit('newMessage', { body: filter.clean(values.body), channelId: currentChannelID, username }, (err, response) => {
           if (err) {
-            setDisabledForm(false);
+            formik.setSubmitting(false);
             return toast.error(t('notifications.connection_error'));
           }
           if (response.status === 'ok') {
             formik.values.body = '';
-            setDisabledForm(false);
+            formik.setSubmitting(false);
           }
         });
       }
@@ -57,9 +56,9 @@ const NewMessageForm = ({ currentChannelID }) => {
           type="text"
           value={formik.values.body}
           onChange={formik.handleChange}
-          disabled={isDisabledForm}
+          disabled={formik.isSubmitting}
         />
-        <button className="btn btn-group-vertical" type="submit" disabled={isDisabledForm}>
+        <button className="btn btn-group-vertical" type="submit" disabled={formik.isSubmitting}>
           <ArrowRightSquare width="20" height="20" />
           <span className="visually-hidden">{t('chat_page.chat.send_btn')}</span>
         </button>

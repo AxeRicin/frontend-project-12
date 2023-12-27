@@ -10,24 +10,25 @@ import { AuthContext } from '../hoc/AuthProvider';
 
 const Layout = () => {
   const location = useLocation();
-  const { userToken } = useAuth();
+  const { user } = useAuth();
   const { signOut } = useContext(AuthContext);
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  const hendlesignOut = () => {
-    signOut(() => navigate(getRoutes.loginpage()));
+  const handleSignOut = () => {
+    signOut();
+    navigate(getRoutes.loginPage());
   };
 
-  if (location.pathname === getRoutes.main() && !userToken) {
-    return <Navigate to={getRoutes.loginpage()} state={{ from: location }} />;
+  if (location.pathname === getRoutes.main() && !user) {
+    return <Navigate to={getRoutes.loginPage()} state={{ from: location }} />;
   }
   return (
     <>
       <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
         <div className="container">
           <Link className="navbar-brand" to={getRoutes.main()}>Hexlet Chat</Link>
-          {userToken && <Button variant="primary" onClick={hendlesignOut}>{t('exit_btn')}</Button>}
+          {user && <Button variant="primary" onClick={handleSignOut}>{t('exit_btn')}</Button>}
         </div>
       </nav>
       <Outlet />

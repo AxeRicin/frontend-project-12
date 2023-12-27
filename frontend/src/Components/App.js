@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import getRoutes from '../routes.js';
 import Layout from './Layout.js';
-import NotfoundPage from '../page/NotfoundPage.js';
+import NotFoundPage from '../page/NotFoundPage.js';
 import LoginPage from '../page/LoginPage.js';
 import AuthProvider from '../hoc/AuthProvider.js';
 import ChatPage from '../page/ChatPage.js';
@@ -13,7 +13,6 @@ import RegistrationPage from '../page/RegistrationPage.js';
 import FPProvider from '../hoc/FilterProfanityProvider.js';
 
 const App = () => (
-
   <AuthProvider>
     <Provider store={store}>
       <ApiProvider>
@@ -23,9 +22,9 @@ const App = () => (
               <Routes>
                 <Route path={getRoutes.main()} element={<Layout />}>
                   <Route index element={<ChatPage />} />
-                  <Route path="*" element={<NotfoundPage />} />
-                  <Route path={getRoutes.loginpage()} element={<LoginPage />} />
-                  <Route path={getRoutes.signuppage()} element={<RegistrationPage />} />
+                  <Route path="*" element={<NotFoundPage />} />
+                  <Route path={getRoutes.loginPage()} element={<LoginPage />} />
+                  <Route path={getRoutes.signupPage()} element={<RegistrationPage />} />
                 </Route>
               </Routes>
             </div>
