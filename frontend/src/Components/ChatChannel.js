@@ -25,7 +25,7 @@ const ChatChannel = () => {
     }
     const { scrollHeight } = messagesBox.current;
     messagesBox.current.scroll(0, scrollHeight);
-  }, [isFirstStart, messages]);
+  }, [isFirstStart, messages, currentChannel]);
 
   return (
     <div className="col p-0 h-100">
