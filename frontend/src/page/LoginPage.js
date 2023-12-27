@@ -23,7 +23,7 @@ const LoginPage = () => {
                   {t('LoginPage.card_footer')}
                   {' '}
                 </span>
-                <Link to={getRoutes.signuppage()}>{t('LoginPage.card_footer_registrationBtn')}</Link>
+                <Link to={getRoutes.signupPage()}>{t('LoginPage.card_footer_registrationBtn')}</Link>
               </div>
             </div>
           </div>

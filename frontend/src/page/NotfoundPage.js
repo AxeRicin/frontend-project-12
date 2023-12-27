@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import notFoundImg from '../assets/notFound.svg';
 import getRoutes from '../routes.js';
 
-const Notfoundpage = () => {
+const NotFoundPage = () => {
   const { t } = useTranslation();
   return (
     <div className="text-center">
@@ -22,4 +22,4 @@ const Notfoundpage = () => {
   );
 };
 
-export default Notfoundpage;
+export default NotFoundPage;

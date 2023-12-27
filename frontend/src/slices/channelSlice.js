@@ -11,12 +11,12 @@ export const channelSlice = createSlice({
   name: 'channels',
   initialState,
   reducers: {
-    addChennels: (state, { payload }) => {
+    addChannels: (state, { payload }) => {
       const { channels, currentChannelId } = payload;
       state.currentChannelID = currentChannelId;
       state.channels = channels;
     },
-    addChennel: (state, { payload }) => {
+    addChannel: (state, { payload }) => {
       const isCopy = Boolean(state.channels.find(({ id }) => id === payload.id));
       if (!isCopy) {
         state.channels.push(payload);
@@ -38,7 +38,7 @@ export const channelSlice = createSlice({
 });
 
 export const {
-  addChennels, addChennel, setCurrentChannel, removeChannel, renameChannel,
+  addChannels, addChannel, setCurrentChannel, removeChannel, renameChannel,
 } = channelSlice.actions;
 
 export default channelSlice.reducer;
