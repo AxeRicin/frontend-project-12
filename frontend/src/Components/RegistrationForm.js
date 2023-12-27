@@ -76,7 +76,6 @@ const RegistrationForm = () => {
               && props.errors.username
               && <Form.Control.Feedback type="invalid" tooltip>{props.errors.username}</Form.Control.Feedback>
             }
-            {isExistingUser && <Form.Control.Feedback type="invalid" tooltip>{t('user_exist')}</Form.Control.Feedback>}
           </Form.Group>
           <Form.Group className="form-floating mb-3" controlId="password">
             <Form.Control
@@ -95,7 +94,6 @@ const RegistrationForm = () => {
               && props.errors.password
               && <Form.Control.Feedback type="invalid" tooltip>{props.errors.password}</Form.Control.Feedback>
             }
-            {isExistingUser && <Form.Control.Feedback type="invalid" tooltip>{t('reg_page.reg_form.reg_error.user_exist')}</Form.Control.Feedback>}
           </Form.Group>
           <Form.Group className="form-floating mb-4" controlId="confirmPassword">
             <Form.Control
