@@ -27,18 +27,16 @@ const NewMessageForm = ({ currentChannelID }) => {
       body: yup.string().trim().required(),
     }),
     onSubmit: (values) => {
-      if (formik.values.body !== '') {
-        socket.timeout(msTimeout).emit('newMessage', { body: filter.clean(values.body), channelId: currentChannelID, username }, (err, response) => {
-          if (err) {
-            formik.setSubmitting(false);
-            return toast.error(t('notifications.connection_error'));
-          }
-          if (response.status === 'ok') {
-            formik.values.body = '';
-            formik.setSubmitting(false);
-          }
-        });
-      }
+      socket.timeout(msTimeout).emit('newMessage', { body: filter.clean(values.body), channelId: currentChannelID, username }, (err, response) => {
+        if (err) {
+          formik.setSubmitting(false);
+          return toast.error(t('notifications.connection_error'));
+        }
+        if (response.status === 'ok') {
+          formik.values.body = '';
+          formik.setSubmitting(false);
+        }
+      });
     },
   });
 
