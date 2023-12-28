@@ -10,12 +10,10 @@ import { AuthContext } from '../hoc/AuthProvider';
 import { ApiContext } from '../hoc/ApiProvider';
 import { FilterContext } from '../hoc/FilterProfanityProvider';
 
-const msTimeout = 5000;
-
 const NewMessageForm = ({ currentChannelID }) => {
   const { user: { username } } = useContext(AuthContext);
   const { t } = useTranslation();
-  const { socket } = useContext(ApiContext);
+  const { sendNewMessage } = useContext(ApiContext);
   const filter = useContext(FilterContext);
   const textArea = useRef();
 
@@ -26,17 +24,17 @@ const NewMessageForm = ({ currentChannelID }) => {
     validationSchema: yup.object().shape({
       body: yup.string().trim().required(),
     }),
-    onSubmit: (values) => {
-      socket.timeout(msTimeout).emit('newMessage', { body: filter.clean(values.body), channelId: currentChannelID, username }, (err, response) => {
-        if (err) {
-          formik.setSubmitting(false);
-          return toast.error(t('notifications.connection_error'));
-        }
-        if (response.status === 'ok') {
+    onSubmit: async (values) => {
+      try {
+        const message = { body: filter.clean(values.body), channelId: currentChannelID, username };
+        await sendNewMessage(message).then(() => {
           formik.values.body = '';
           formik.setSubmitting(false);
-        }
-      });
+        });
+      } catch (err) {
+        formik.setSubmitting(false);
+        return toast.error(t('notifications.connection_error'));
+      }
     },
   });
 

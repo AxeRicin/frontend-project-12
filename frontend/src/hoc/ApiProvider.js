@@ -20,6 +20,15 @@ const ApiProvider = ({ children }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
+  const sendNewMessage = (message) => new Promise((resolve, rejected) => {
+    socket.timeout(msTimeout).emit('newMessage', message, (err, response) => {
+      if (err) rejected(err);
+      else {
+        resolve(response);
+      }
+    });
+  });
+
   const takeMessage = () => {
     socket.on('newMessage', (newMessage) => dispatch(addMessage(newMessage)));
   };
@@ -72,7 +81,7 @@ const ApiProvider = ({ children }) => {
   };
 
   const value = useMemo(() => ({
-    socket,
+    sendNewMessage,
     takeMessage,
     sendNewChannel,
     takeChannel,
