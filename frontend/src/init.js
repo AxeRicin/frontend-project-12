@@ -10,6 +10,7 @@ const rollbarConfig = {
 };
 
 const init = async () => {
+  console.log(process.env.REACT_APP_TEST);
   const i18n = i18next.createInstance();
 
   await i18n
