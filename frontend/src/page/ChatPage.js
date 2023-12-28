@@ -9,12 +9,14 @@ import Loader from '../Components/Loader.js';
 import Channels from '../Components/Channels.js';
 import ChatChannel from '../Components/ChatChannel.js';
 import getModal from '../Components/Modals/index.js';
+import { ApiContext } from '../hoc/ApiProvider.js';
 
 const ChatPage = () => {
   const { user, getAuthHeader } = useContext(AuthContext);
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const { type } = useSelector(((state) => state.modal));
+  const { connectSocket, disconnectSocket } = useContext(ApiContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,8 +27,12 @@ const ChatPage = () => {
       setIsLoading(true);
     };
     fetchData();
+    connectSocket();
+    return disconnectSocket;
   }, [user]);
+
   if (!isLoading) return (<Loader />);
+
   return (
     <>
       <div className="container h-100 my-4 overflow-hidden rounded shadow">

@@ -1,8 +1,13 @@
 import i18next from 'i18next';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
-import { Provider, ErrorBoundary } from '@rollbar/react';
+import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
+import { Provider as ReduxProvider } from 'react-redux';
 import App from './Components/App.js';
 import resources from './locales/index.js';
+import AuthProvider from './hoc/AuthProvider.js';
+import store from './store/store.js';
+import ApiProvider from './hoc/ApiProvider.js';
+import FPProvider from './hoc/FilterProfanityProvider.js';
 
 const rollbarConfig = {
   accessToken: process.env.REACT_APP_ACCESS_TOKEN,
@@ -23,13 +28,21 @@ const init = async () => {
     });
 
   return (
-    <Provider config={rollbarConfig}>
+    <RollbarProvider config={rollbarConfig}>
       <ErrorBoundary>
         <I18nextProvider i18n={i18n}>
-          <App />
+          <AuthProvider>
+            <ReduxProvider store={store}>
+              <ApiProvider>
+                <FPProvider>
+                  <App />
+                </FPProvider>
+              </ApiProvider>
+            </ReduxProvider>
+          </AuthProvider>
         </I18nextProvider>
       </ErrorBoundary>
-    </Provider>
+    </RollbarProvider>
   );
 };
 

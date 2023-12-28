@@ -1,10 +1,10 @@
 /* eslint consistent-return: 0 */
 
 import { createContext, useMemo } from 'react';
-import io from 'socket.io-client';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import { io } from 'socket.io-client';
 import { addMessage } from '../slices/messagesSlice';
 import {
   addChannel, setCurrentChannel, removeChannel, renameChannel,
@@ -16,32 +16,43 @@ const msTimeout = 5000;
 export const ApiContext = createContext(null);
 
 const ApiProvider = ({ children }) => {
-  const socket = io();
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const socket = io({
+    autoConnect: false,
+  });
+
+  const connectSocket = () => {
+    socket.connect();
+
+    socket.on('newMessage', (newMessage) => console.log(newMessage) || dispatch(addMessage(newMessage)));
+
+    socket.on('removeChannel', ({ id }) => {
+      dispatch(removeChannel(id));
+    });
+
+    socket.on('newChannel', (payload) => dispatch(addChannel(payload)));
+
+    socket.on('renameChannel', (payload) => dispatch(renameChannel(payload)));
+  };
+
+  const disconnectSocket = () => {
+    socket.off('newMessage');
+    socket.off('removeChannel');
+    socket.off('newChannel');
+    socket.off('renameChannel');
+    socket.disconnect();
+  };
 
   const sendNewMessage = (message) => new Promise((resolve, rejected) => {
     socket.timeout(msTimeout).emit('newMessage', message, (err, response) => {
+      console.log(response);
       if (err) rejected(err);
       else {
         resolve(response);
       }
     });
   });
-
-  const takeMessage = () => {
-    socket.on('newMessage', (newMessage) => dispatch(addMessage(newMessage)));
-  };
-
-  const takeRemoveChannel = () => {
-    socket.on('removeChannel', ({ id }) => {
-      dispatch(removeChannel(id));
-    });
-  };
-
-  const takeChannel = () => {
-    socket.on('newChannel', (payload) => dispatch(addChannel(payload)));
-  };
 
   const sendNewChannel = (nameNewChannel) => {
     socket.timeout(msTimeout).emit('newChannel', { name: nameNewChannel }, (err, response) => {
@@ -65,10 +76,6 @@ const ApiProvider = ({ children }) => {
     });
   };
 
-  const takeRenameChannel = () => {
-    socket.on('renameChannel', (payload) => dispatch(renameChannel(payload)));
-  };
-
   const sendRenameChannel = (id, newName) => {
     socket.timeout(msTimeout).emit('renameChannel', { id, name: newName }, (err, response) => {
       if (err) return toast.error(t('notifications.connection_error'));
@@ -81,15 +88,13 @@ const ApiProvider = ({ children }) => {
   };
 
   const value = useMemo(() => ({
+    disconnectSocket,
     sendNewMessage,
-    takeMessage,
     sendNewChannel,
-    takeChannel,
     sendRemoveChannel,
-    takeRemoveChannel,
     sendRenameChannel,
-    takeRenameChannel,
-  }), []);
+    connectSocket,
+  }), [socket]);
 
   return (<ApiContext.Provider value={value}>{children}</ApiContext.Provider>);
 };

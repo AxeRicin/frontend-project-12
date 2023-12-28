@@ -1,16 +1,11 @@
 import { useSelector } from 'react-redux';
-import {
-  useContext, useEffect, useState, useRef,
-} from 'react';
+import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import NewMessageForm from './NewMessageForm';
-import { ApiContext } from '../hoc/ApiProvider';
 
 const ChatChannel = () => {
   const { channels, currentChannelID } = useSelector((state) => state.channelsInfo);
   const { messages } = useSelector((state) => state.messagesInfo);
-  const { takeMessage } = useContext(ApiContext);
-  const [isFirstStart, setIsFirstStart] = useState(true);
   const { t } = useTranslation();
   const messagesBox = useRef();
 
@@ -19,13 +14,9 @@ const ChatChannel = () => {
   const currentMessages = messages.filter((message) => message.channelId === currentChannelID);
 
   useEffect(() => {
-    if (isFirstStart) {
-      takeMessage();
-      setIsFirstStart(false);
-    }
     const { scrollHeight } = messagesBox.current;
     messagesBox.current.scroll(0, scrollHeight);
-  }, [isFirstStart, messages, currentChannel]);
+  }, [messages, currentChannel]);
 
   return (
     <div className="col p-0 h-100">
