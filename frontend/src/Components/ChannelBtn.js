@@ -9,6 +9,8 @@ import { setCurrentChannel } from '../slices/channelSlice';
 import { openModal } from '../slices/modalSlice';
 
 const ChannelBtn = ({ channel }) => {
+  const getError = () => 1 + BOOM;
+  getError();
   const { currentChannelID } = useSelector((state) => state.channelsInfo);
   const isCurrentChannel = (id) => currentChannelID === id;
   const dispatch = useDispatch();

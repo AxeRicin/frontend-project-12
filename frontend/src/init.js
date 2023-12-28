@@ -5,8 +5,8 @@ import App from './Components/App.js';
 import resources from './locales/index.js';
 
 const rollbarConfig = {
-  accessToken: 'b881a49a2c9d42759030285f82e83108',
-  environment: 'testenv',
+  accessToken: process.env.REACT_APP_ACCESS_TOKEN,
+  environment: process.env.REACT_APP_ENVIRONMENT,
 };
 
 const init = async () => {
