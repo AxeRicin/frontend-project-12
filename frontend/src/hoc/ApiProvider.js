@@ -25,7 +25,7 @@ const ApiProvider = ({ children }) => {
   const connectSocket = () => {
     socket.connect();
 
-    socket.on('newMessage', (newMessage) => console.log(newMessage) || dispatch(addMessage(newMessage)));
+    socket.on('newMessage', (newMessage) => dispatch(addMessage(newMessage)));
 
     socket.on('removeChannel', ({ id }) => {
       dispatch(removeChannel(id));
@@ -46,7 +46,6 @@ const ApiProvider = ({ children }) => {
 
   const sendNewMessage = (message) => new Promise((resolve, rejected) => {
     socket.timeout(msTimeout).emit('newMessage', message, (err, response) => {
-      console.log(response);
       if (err) rejected(err);
       else {
         resolve(response);
