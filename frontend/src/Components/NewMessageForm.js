@@ -27,13 +27,12 @@ const NewMessageForm = ({ currentChannelID }) => {
     onSubmit: async (values) => {
       try {
         const message = { body: filter.clean(values.body), channelId: currentChannelID, username };
-        await sendNewMessage(message).then(() => {
-          formik.values.body = '';
-          formik.setSubmitting(false);
-        });
+        await sendNewMessage(message);
+        formik.values.body = '';
+        formik.setSubmitting(false);
       } catch (err) {
         formik.setSubmitting(false);
-        return toast.error(t('notifications.connection_error'));
+        toast.error(t('notifications.connection_error'));
       }
     },
   });
