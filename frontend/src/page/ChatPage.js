@@ -5,10 +5,10 @@ import getRoutes from '../routes.js';
 import { AuthContext } from '../hoc/AuthProvider';
 import { addChannels } from '../slices/channelSlice';
 import { addMessages } from '../slices/messagesSlice.js';
-import Loader from '../Components/Loader.js';
-import Channels from '../Components/Channels.js';
-import ChatChannel from '../Components/ChatChannel.js';
-import getModal from '../Components/Modals/index.js';
+import Loader from '../components/Loader.js';
+import Channels from '../components/Channels.js';
+import ChatChannel from '../components/ChatChannel.js';
+import getModal from '../components/modals/index.js';
 import { ApiContext } from '../hoc/ApiProvider.js';
 
 const ChatPage = () => {

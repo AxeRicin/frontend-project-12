@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import getRoutes from '../routes.js';
 import avatar from '../assets/avatar.jpg';
-import LoginForm from '../Components/LoginForm.js';
+import LoginForm from '../components/LoginForm.js';
 
 const LoginPage = () => {
   const { t } = useTranslation();

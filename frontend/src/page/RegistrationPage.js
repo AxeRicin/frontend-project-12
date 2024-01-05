@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import avatar1 from '../assets/avatar1.jpg';
-import RegistrationForm from '../Components/RegistrationForm';
+import RegistrationForm from '../components/RegistrationForm';
 
 const RegistrationPage = () => {
   const { t } = useTranslation();
