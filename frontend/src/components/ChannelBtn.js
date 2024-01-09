@@ -14,7 +14,7 @@ const ChannelBtn = ({ channel }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const hendlerClickForChannelBtn = (id) => () => dispatch(setCurrentChannel(id));
+  const handlerClickForChannelBtn = (id) => () => dispatch(setCurrentChannel(id));
 
   const handleRemoveChannel = (id) => () => dispatch(openModal({ type: 'removeChannel', extra: id }));
   const handleRenameChannel = (id) => () => dispatch(openModal({ type: 'renameChannel', extra: id }));
@@ -35,7 +35,7 @@ const ChannelBtn = ({ channel }) => {
       <li className="nav-item w-100">
         <ButtonGroup className="d-flex dropdown">
           <Button
-            onClick={hendlerClickForChannelBtn(channel.id)}
+            onClick={handlerClickForChannelBtn(channel.id)}
             variant={isCurrentChannel(channel.id) ? 'secondary' : ''}
             className={cn(classChannelName)}
           >
@@ -60,7 +60,7 @@ const ChannelBtn = ({ channel }) => {
   return (
     <li className="nav-item w-100">
       <Button
-        onClick={hendlerClickForChannelBtn(channel.id)}
+        onClick={handlerClickForChannelBtn(channel.id)}
         variant={isCurrentChannel(channel.id) ? 'secondary' : ''}
         className={classChannelName}
       >
