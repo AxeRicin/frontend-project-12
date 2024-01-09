@@ -6,6 +6,7 @@ import {
 } from 'react';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { modalClose } from '../../slices/modalSlice';
 import { ApiContext } from '../../hoc/ApiProvider';
 import { FilterContext } from '../../hoc/FilterProfanityProvider';
@@ -39,12 +40,16 @@ const ModalAddChannel = () => {
         name: '',
       }}
       validationSchema={newChannelSchema}
-      onSubmit={(values) => {
-        setDisabledButton(true);
-        sendNewChannel(filter.clean(values.name));
-        setTimeout(() => {
+      onSubmit={async (values) => {
+        try {
+          setDisabledButton(true);
+          await sendNewChannel(filter.clean(values.name));
+          dispatch(modalClose());
+          toast.success(t('notifications.channelAdd'));
+        } catch (error) {
           setDisabledButton(false);
-        }, 5500);
+          toast.error(t('notifications.connectionError'));
+        }
       }}
     >
       {(props) => (

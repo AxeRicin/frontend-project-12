@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
 import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { modalClose } from '../../slices/modalSlice';
 import { ApiContext } from '../../hoc/ApiProvider';
 
@@ -14,12 +15,16 @@ const RemoveChannel = () => {
 
   const handleCancel = () => dispatch(modalClose());
 
-  const handleRemoveChannel = () => {
-    setDisabledButton(true);
-    sendRemoveChannel(channelId);
-    setTimeout(() => {
+  const handleRemoveChannel = async () => {
+    try {
+      setDisabledButton(true);
+      await sendRemoveChannel(channelId);
+      dispatch(modalClose());
+      toast.success(t('notifications.channelRemove'));
+    } catch (error) {
       setDisabledButton(false);
-    }, 5500);
+      toast.error(t('notifications.connectionError'));
+    }
   };
 
   return (
