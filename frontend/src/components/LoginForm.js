@@ -34,7 +34,7 @@ const LoginForm = () => {
         navigate(fromPage, { replace: true });
       } catch (err) {
         if (!err.response) {
-          toast.error(t('notifications.connection_error'));
+          toast.error(t('notifications.connectionError'));
         }
         if (err.response.status === 401) {
           setAuthFailed(true);
@@ -50,19 +50,19 @@ const LoginForm = () => {
 
   return (
     <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
-      <h1 className="text-center mb-4">{t('LoginPage.LoginForm.sign_in')}</h1>
+      <h1 className="text-center mb-4">{t('LoginPage.LoginForm.signIn')}</h1>
       <Form.Group className="form-floating mb-3" controlId="username">
         <Form.Control
           ref={inputRef}
           name="username"
           autoComplete="username"
           required
-          placeholder={t('LoginPage.LoginForm.your_nickname')}
+          placeholder={t('LoginPage.LoginForm.yourNickname')}
           onChange={formik.handleChange}
           value={formik.values.username}
           isInvalid={authFailed}
         />
-        <Form.Label>{t('LoginPage.LoginForm.your_nickname')}</Form.Label>
+        <Form.Label>{t('LoginPage.LoginForm.yourNickname')}</Form.Label>
       </Form.Group>
       <Form.Group className="form-floating mb-4" controlId="password">
         <Form.Control
@@ -82,7 +82,7 @@ const LoginForm = () => {
           </Form.Control.Feedback>
         )}
       </Form.Group>
-      <Button className="w-100 mb-3 " variant="outline-primary" type="submit">{t('LoginPage.LoginForm.sign_in')}</Button>
+      <Button className="w-100 mb-3 " variant="outline-primary" type="submit">{t('LoginPage.LoginForm.signIn')}</Button>
     </Form>
   );
 };

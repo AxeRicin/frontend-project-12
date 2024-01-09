@@ -25,13 +25,13 @@ const RemoveChannel = () => {
   return (
     <Modal dialogClassName="modal-dialog-centered" show={isOpened} onHide={handleCancel}>
       <Modal.Header closeButton>
-        <Modal.Title>{t('modals.remove_channel.title')}</Modal.Title>
+        <Modal.Title>{t('modals.removeChannel.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p className="lead">{t('modals.remove_channel.paragraph')}</p>
+        <p className="lead">{t('modals.removeChannel.paragraph')}</p>
         <div className="d-flex justify-content-end">
-          <Button className="me-2" variant="secondary" onClick={handleCancel} disabled={isDisabledButton}>{t('modals.cancel_btn')}</Button>
-          <Button variant="danger" type="button" onClick={handleRemoveChannel} disabled={isDisabledButton}>{t('modals.delete_btn')}</Button>
+          <Button className="me-2" variant="secondary" onClick={handleCancel} disabled={isDisabledButton}>{t('modals.cancelBtn')}</Button>
+          <Button variant="danger" type="button" onClick={handleRemoveChannel} disabled={isDisabledButton}>{t('modals.deleteBtn')}</Button>
         </div>
       </Modal.Body>
     </Modal>

@@ -55,33 +55,33 @@ const ApiProvider = ({ children }) => {
 
   const sendNewChannel = (nameNewChannel) => {
     socket.timeout(msTimeout).emit('newChannel', { name: nameNewChannel }, (err, response) => {
-      if (err) return toast.error(t('notifications.connection_error'));
+      if (err) return toast.error(t('notifications.connectionError'));
       const { id } = response.data;
       dispatch(addChannel(response.data));
       dispatch(setCurrentChannel(id));
       dispatch(modalClose());
-      toast.success(t('notifications.channel_add'));
+      toast.success(t('notifications.channelAdd'));
     });
   };
 
   const sendRemoveChannel = (id) => {
     socket.timeout(msTimeout).emit('removeChannel', { id }, (err, response) => {
-      if (err) return toast.error(t('notifications.connection_error'));
+      if (err) return toast.error(t('notifications.connectionError'));
       if (response.status === 'ok') {
         dispatch(removeChannel(id));
         dispatch(modalClose());
-        toast.success(t('notifications.channel_remove'));
+        toast.success(t('notifications.channelRemove'));
       }
     });
   };
 
   const sendRenameChannel = (id, newName) => {
     socket.timeout(msTimeout).emit('renameChannel', { id, name: newName }, (err, response) => {
-      if (err) return toast.error(t('notifications.connection_error'));
+      if (err) return toast.error(t('notifications.connectionError'));
       if (response.status === 'ok') {
         dispatch(renameChannel({ id, name: newName }));
         dispatch(modalClose());
-        toast.success(t('notifications.channel_rename'));
+        toast.success(t('notifications.channelRename'));
       }
     });
   };

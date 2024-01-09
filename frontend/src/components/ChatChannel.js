@@ -30,7 +30,7 @@ const ChatChannel = () => {
             </b>
           </p>
           <span className="text-muted">
-            {t('chat_page.chat.counter_message.message', { count: currentMessages.length })}
+            {t('chatPage.chat.counterMessage.message', { count: currentMessages.length })}
           </span>
         </div>
         <div ref={messagesBox} id="messages-box" className="chat-messages overflow-auto px-5 ">

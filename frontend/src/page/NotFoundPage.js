@@ -10,13 +10,13 @@ const NotFoundPage = () => {
       <img
         className="img-fluid h-25"
         src={notFoundImg}
-        alt={t('not_found_page.header')}
+        alt={t('notFoundPage.header')}
       />
-      <h1 className="h4 text-muted">{t('not_found_page.header')}</h1>
+      <h1 className="h4 text-muted">{t('notFoundPage.header')}</h1>
       <p className="text-muted">
-        {t('not_found_page.paragraph')}
+        {t('notFoundPage.paragraph')}
         {' '}
-        <Link to={getRoutes.main()}>{t('not_found_page.link')}</Link>
+        <Link to={getRoutes.main()}>{t('notFoundPage.link')}</Link>
       </p>
     </div>
   );

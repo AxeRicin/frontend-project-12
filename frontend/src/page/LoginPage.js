@@ -20,10 +20,10 @@ const LoginPage = () => {
             <div className="card-footer p-4">
               <div className="text-center">
                 <span>
-                  {t('LoginPage.card_footer')}
+                  {t('LoginPage.cardFooter')}
                   {' '}
                 </span>
-                <Link to={getRoutes.signupPage()}>{t('LoginPage.card_footer_registrationBtn')}</Link>
+                <Link to={getRoutes.signupPage()}>{t('LoginPage.cardFooterRegistrationBtn')}</Link>
               </div>
             </div>
           </div>

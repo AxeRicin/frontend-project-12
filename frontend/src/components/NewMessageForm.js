@@ -32,7 +32,7 @@ const NewMessageForm = ({ currentChannelID }) => {
         formik.setSubmitting(false);
       } catch (err) {
         formik.setSubmitting(false);
-        toast.error(t('notifications.connection_error'));
+        toast.error(t('notifications.connectionError'));
       }
     },
   });
@@ -46,8 +46,8 @@ const NewMessageForm = ({ currentChannelID }) => {
           ref={textArea}
           className="border-0 p-0 ps-2 form-control"
           name="body"
-          aria-label={t('chat_page.chat.new_message')}
-          placeholder={t('chat_page.chat.enter_message')}
+          aria-label={t('chatPage.chat.newMessage')}
+          placeholder={t('chatPage.chat.enterMessage')}
           type="text"
           value={formik.values.body}
           onChange={formik.handleChange}
@@ -55,7 +55,7 @@ const NewMessageForm = ({ currentChannelID }) => {
         />
         <button className="btn btn-group-vertical" type="submit" disabled={formik.isSubmitting}>
           <ArrowRightSquare width="20" height="20" />
-          <span className="visually-hidden">{t('chat_page.chat.send_btn')}</span>
+          <span className="visually-hidden">{t('chatPage.chat.sendBtn')}</span>
         </button>
       </div>
     </form>

@@ -28,7 +28,7 @@ const Layout = () => {
       <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
         <div className="container">
           <Link className="navbar-brand" to={getRoutes.main()}>Hexlet Chat</Link>
-          {user && <Button variant="primary" onClick={handleSignOut}>{t('exit_btn')}</Button>}
+          {user && <Button variant="primary" onClick={handleSignOut}>{t('exitBtn')}</Button>}
         </div>
       </nav>
       <Outlet />

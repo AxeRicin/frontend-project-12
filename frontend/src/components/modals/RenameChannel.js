@@ -25,8 +25,8 @@ const RenameChannel = () => {
 
   const channelNames = channels.map((channel) => channel.name);
   const newChannelSchema = yup.object().shape({
-    name: yup.string().required(t('modals.err_valid.min_or_max_length_username')).min(3, t('modals.err_valid.min_or_max_length_username')).max(20, t('modals.err_valid.min_or_max_length_username'))
-      .test({ message: () => t('modals.err_valid.not_Unique_name'), test: (newName) => !channelNames.includes(newName) }),
+    name: yup.string().required(t('modals.errValid.minOrMaxLengthUsername')).min(3, t('modals.errValid.minOrMaxLengthUsername')).max(20, t('modals.errValid.minOrMaxLengthUsername'))
+      .test({ message: () => t('modals.errValid.notUniqueName'), test: (newName) => !channelNames.includes(newName) }),
   });
 
   useEffect(() => {
@@ -50,7 +50,7 @@ const RenameChannel = () => {
       {(props) => (
         <Modal dialogClassName="modal-dialog-centered" show={isOpened} onHide={handleCancel}>
           <Modal.Header closeButton>
-            <Modal.Title>{t('modals.rename_channel.title')}</Modal.Title>
+            <Modal.Title>{t('modals.renameChannel.title')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form onSubmit={props.handleSubmit}>
@@ -64,10 +64,10 @@ const RenameChannel = () => {
                   isInvalid={props.touched.name && props.errors.name}
                 />
                 {props.touched.name && props.errors.name && <Form.Control.Feedback type="invalid">{props.errors.name}</Form.Control.Feedback>}
-                <Form.Label className="visually-hidden">{t('modals.rename_channel.label')}</Form.Label>
+                <Form.Label className="visually-hidden">{t('modals.renameChannel.label')}</Form.Label>
                 <div className="d-flex justify-content-end">
-                  <Button className="me-2" variant="secondary" onClick={handleCancel} disabled={isDisabledButton}>{t('modals.cancel_btn')}</Button>
-                  <Button variant="primary" type="submit" disabled={isDisabledButton}>{t('modals.send_btn')}</Button>
+                  <Button className="me-2" variant="secondary" onClick={handleCancel} disabled={isDisabledButton}>{t('modals.cancelBtn')}</Button>
+                  <Button variant="primary" type="submit" disabled={isDisabledButton}>{t('modals.sendBtn')}</Button>
                 </div>
               </Form.Group>
             </Form>

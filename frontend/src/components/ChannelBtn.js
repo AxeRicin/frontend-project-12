@@ -45,11 +45,11 @@ const ChannelBtn = ({ channel }) => {
           </Button>
           <Dropdown>
             <Dropdown.Toggle variant={isCurrentChannel(channel.id) ? 'secondary' : ''} className={classExpandedBtn}>
-              <span className="visually-hidden">{t('chat_page.chat.dropdown')}</span>
+              <span className="visually-hidden">{t('chatPage.chat.dropdown')}</span>
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item onClick={handleRemoveChannel(channel.id)}>{t('chat_page.chat.dropdown_delete')}</Dropdown.Item>
-              <Dropdown.Item onClick={handleRenameChannel(channel.id)}>{t('chat_page.chat.dropdown_rename')}</Dropdown.Item>
+              <Dropdown.Item onClick={handleRemoveChannel(channel.id)}>{t('chatPage.chat.dropdownDelete')}</Dropdown.Item>
+              <Dropdown.Item onClick={handleRenameChannel(channel.id)}>{t('chatPage.chat.dropdownRename')}</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </ButtonGroup>
