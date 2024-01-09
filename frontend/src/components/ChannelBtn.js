@@ -24,25 +24,27 @@ const ChannelBtn = ({ channel }) => {
     'rounded-0': true,
     'text-start': true,
     'text-truncate': channel.removable,
-    'btn-secondary': isCurrentChannel(channel.id),
   };
   const classExpandedBtn = {
     'flex-grow-0': true,
     'dropdown-toggle': true,
     'dropdown-toggle-split': true,
-    'btn-secondary': isCurrentChannel(channel.id),
   };
   if (channel.removable) {
     return (
       <li className="nav-item w-100">
         <ButtonGroup className="d-flex dropdown">
-          <Button onClick={hendlerClickForChannelBtn(channel.id)} variant="" className={cn(classChannelName)}>
+          <Button
+            onClick={hendlerClickForChannelBtn(channel.id)}
+            variant={isCurrentChannel(channel.id) ? 'secondary' : ''}
+            className={cn(classChannelName)}
+          >
             #
             {' '}
             {channel.name}
           </Button>
           <Dropdown>
-            <Dropdown.Toggle variant="" className={classExpandedBtn}>
+            <Dropdown.Toggle variant={isCurrentChannel(channel.id) ? 'secondary' : ''} className={classExpandedBtn}>
               <span className="visually-hidden">{t('chat_page.chat.dropdown')}</span>
             </Dropdown.Toggle>
             <Dropdown.Menu>
@@ -57,7 +59,11 @@ const ChannelBtn = ({ channel }) => {
 
   return (
     <li className="nav-item w-100">
-      <Button onClick={hendlerClickForChannelBtn(channel.id)} variant="" className={classChannelName}>
+      <Button
+        onClick={hendlerClickForChannelBtn(channel.id)}
+        variant={isCurrentChannel(channel.id) ? 'secondary' : ''}
+        className={classChannelName}
+      >
         <span className="me-1">#</span>
         {channel.name}
       </Button>
