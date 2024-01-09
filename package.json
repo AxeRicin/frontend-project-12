@@ -12,7 +12,7 @@
   "author": "AxeRicin",
   "license": "ISC",
   "dependencies": {
-    "@hexlet/chat-server": "^1.1.8"
+    "@hexlet/chat-server": "^1.1.9"
   },
   "engines": {
     "node": "18.17.1"
