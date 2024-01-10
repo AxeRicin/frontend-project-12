@@ -1,6 +1,6 @@
-/* eslint consistent-return: 0 */
+/* eslint react/jsx-no-constructed-context-values: 0 */
 
-import { createContext, useMemo } from 'react';
+import { createContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { io } from 'socket.io-client';
 import { addMessage } from '../slices/messagesSlice';
@@ -84,14 +84,14 @@ const ApiProvider = ({ children }) => {
     });
   });
 
-  const value = useMemo(() => ({
+  const value = {
     disconnectSocket,
     sendNewMessage,
     sendNewChannel,
     sendRemoveChannel,
     sendRenameChannel,
     connectSocket,
-  }), [socket]);
+  };
 
   return (<ApiContext.Provider value={value}>{children}</ApiContext.Provider>);
 };

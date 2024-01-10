@@ -1,4 +1,6 @@
-import { createContext, useMemo, useState } from 'react';
+/* eslint react/jsx-no-constructed-context-values: 0 */
+
+import { createContext, useState } from 'react';
 
 export const AuthContext = createContext(null);
 
@@ -21,12 +23,12 @@ const AuthProvider = ({ children }) => {
     localStorage.removeItem('user');
   };
 
-  const value = useMemo(() => ({
+  const value = {
     user,
     signIn,
     signOut,
     getAuthHeader,
-  }), [user]);
+  };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
