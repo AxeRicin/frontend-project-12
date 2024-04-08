@@ -51,7 +51,7 @@ const LoginForm = () => {
   return (
     <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
       <h1 className="text-center mb-4">{t('LoginPage.LoginForm.signIn')}</h1>
-      <Form.Group className="form-floating mb-3" controlId="username">
+      <Form.Group className="form-floating" controlId="username">
         <Form.Control
           ref={inputRef}
           name="username"
